@@ -3,13 +3,12 @@ import { Button, Input, Layout, Text } from "@ui-kitten/components";
 import { SvgUri } from "react-native-svg";
 import { View } from "react-native";
 
-export default function Login() {
-  const [email, setEmail] = useState<string>("");
+type Props = {
+  onLogin: () => void;
+};
 
-  const emailValidator = (email: string) => {
-    const validEmailRegex = /^[a-zA-Z0-9._-]+@perspio\.dev$/;
-    return !validEmailRegex.test(email);
-  };
+export default function Login(props: Props) {
+  const { onLogin } = props;
 
   return (
     <Layout style={{ paddingTop: 20 }}>
@@ -20,17 +19,9 @@ export default function Login() {
         />
       </View>
       <Layout level="4" style={{ padding: 16 }}>
-        <Input onChangeText={setEmail} placeholder="" label="Username" />
-        <Button
-          style={{ marginTop: 16 }}
-          onPress={() => console.log("email", email)}
-          // disabled={emailValidator(email)}
-        >
+        <Button style={{ marginTop: 16 }} onPress={() => onLogin()}>
           Login
         </Button>
-        <Text status="primary" style={{ marginTop: 8 }}>
-          Forgot Password
-        </Text>
       </Layout>
     </Layout>
   );
